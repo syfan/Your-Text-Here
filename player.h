@@ -18,6 +18,7 @@ public:
     Move *doMove(Move *opponentsMove, int msLeft);
 
     Side side; // to keep track of side
+    Side opponentSide;
 
     // Flag to tell if the player is running within the test_minimax context
     bool testingMinimax;

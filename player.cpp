@@ -10,6 +10,14 @@ Player::Player(Side side) {
     testingMinimax = false;
     board = new Board();
     this->side = side;
+    if (side == WHITE)
+    {
+		opponentSide = BLACK;
+	}
+	else
+	{
+	    opponentSide = WHITE;	
+	}
     /* 
      * TODO: Do any initialization you need to do here (setting up the board,
      * precalculating things, etc.) However, remember that you will only have
@@ -40,18 +48,21 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */ 
+     if (!(opponentsMove == NULL))
+     {
+		 board->doMove(opponentsMove, opponentSide);
+	 }
      for (unsigned int i = 0; i < 8; i++)
      {
 		 for (unsigned int j = 0; j < 8; j++)
 		 {
-			 Move * newmove = new Move(i, j);
-			 if (Board::checkMove(newmove, side))
+			 Move * newmove = new Move(i, j);		 
+			 if (board->checkMove(newmove, side))
 			 {
-				 Board::doMove(newmove, side);
+				 board->doMove(newmove, side);
+				 return newmove;
 			 }
 		 }
 	 }
-     
-     
     return NULL;
 }
