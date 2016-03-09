@@ -8,9 +8,6 @@ using namespace std;
 
 class Player {
 
-private:
-    Board *board;
-
 public:
     Player(Side side);
     ~Player();
@@ -19,6 +16,14 @@ public:
 
     Side side; // to keep track of side
     Side opponentSide;
+    
+    int count;
+    int tempcount;
+    Board *board;
+    Board *dupboard;
+    
+    Move *tempmove;
+    Move *newmove;
 
     // Flag to tell if the player is running within the test_minimax context
     bool testingMinimax;
