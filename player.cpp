@@ -11,8 +11,8 @@ Player::Player(Side side) {
     board = new Board();
     dupboard = new Board();
     side = side;
-    count = 2;
-    tempcount = 2;
+    score = 2;
+    tempscore = 2;
     if (side == WHITE)
     {
 		opponentSide = BLACK;
@@ -21,7 +21,7 @@ Player::Player(Side side) {
 	{
 	    opponentSide = WHITE;	
 	}
-	newmove = NULL;
+	//newmove = NULL;
 	tempmove = NULL;
 }
 
@@ -80,7 +80,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
       */
      
      /*
-      * Strategy for better AI:
+      * Strategy for better, greedy AI:
       * for each legal move:
       *     test the move on a duplicate board
       *     count how many pieces are now on the AI's side
@@ -96,7 +96,6 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 	 	 board->doMove(opponentsMove, opponentSide);
 	 	 dupboard->doMove(opponentsMove, opponentSide);
 	 }
-	 
      for (int i = 0; i < 8; i++)
      {
 		 for (int j = 0; j < 8; j++)
@@ -108,17 +107,17 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 				 dupboard->doMove(tempmove,side);
 				 if (side == WHITE)
 				 {
-				     tempcount = dupboard->countWhite();
+				     tempscore = dupboard->countWhite() - dupboard->countBlack();
 				 }
 				 else
 				 {
-					 tempcount = dupboard->countBlack();
+					 tempscore = dupboard->countBlack() - dupboard->countBlack();
 				 }
 				 
-				 if (tempcount > count) // is this move better than others?
+				 if (tempscore > score) // is this move better than others?
 				 {
 					 newmove = tempmove;
-					 count = tempcount;
+					 score = tempscore;
 				 }
 				 dupboard = board->copy();
 			 }			 
@@ -132,4 +131,3 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 	 }
      return NULL;
 }
-// Please read the block comment near the center of this file

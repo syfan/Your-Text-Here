@@ -17,8 +17,8 @@ public:
     Side side; // to keep track of side
     Side opponentSide;
     
-    int count;
-    int tempcount;
+    int score;
+    int tempscore;
     Board *board;
     Board *dupboard;
     
